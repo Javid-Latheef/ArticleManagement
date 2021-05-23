@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="Tags")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Tags implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,7 +31,21 @@ public class Tags implements Serializable {
 	
 	@Column(name = "text",nullable = false)
 	private String text;
+	
+	@ManyToOne(fetch = FetchType.LAZY,optional = false)
+	@JoinColumn(name = "article_id",nullable = false)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnore
+	private Article articleData;
 
+
+	public Article getArticleData() {
+		return articleData;
+	}
+
+	public void setArticleData(Article articleData) {
+		this.articleData = articleData;
+	}
 
 	public Long getId() {
 		return id;

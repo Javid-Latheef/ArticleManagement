@@ -48,6 +48,18 @@ public class Article implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
     private SubCategory subCategory;
     
+    @OneToMany(mappedBy = "articleData",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Set<Tags> tag;
+    
+
+	public Set<Tags> getTag() {
+		return tag;
+	}
+
+	public void setTag(Set<Tags> tag) {
+		this.tag = tag;
+	}
 
 	private String title;
 	
